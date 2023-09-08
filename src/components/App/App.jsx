@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { addContact, deleteContact } from '../redux/contactsSlice';
@@ -15,16 +15,21 @@ import {
 import { Container, Wrapper, Title, SubTitle } from '../App/App.styled';
 
 const App = () => {
-  const audioRef = useRef(null);
+  const audioRef = useRef(
+    new Audio('../../../assets/Raphael Saadiq - Big Easy (Live @ KEXP).mp3')
+  );
   const contacts = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.play();
-    }
-  }, []);
+  const playAudio = () => {
+    audioRef.current.play();
+  };
+
+  const stopAudio = () => {
+    audioRef.current.pause();
+    audioRef.current.currentTime = 0;
+  };
 
   const addContactHandler = contact => {
     dispatch(addContact({ ...contact, id: nanoid() }));
@@ -44,11 +49,8 @@ const App = () => {
 
   return (
     <div>
-      <audio
-        ref={audioRef}
-        src="../../../assets/Raphael Saadiq - Big Easy (Live @ KEXP).mp3"
-        loop
-      />
+      <button onClick={playAudio}>Play</button>
+      <button onClick={stopAudio}>Stop</button>
 
       <BackgroundContainer>
         <Stars />
