@@ -1,4 +1,5 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
+import ReactPlayer from 'react-player';
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { addContact, deleteContact } from '../redux/contactsSlice';
@@ -12,28 +13,23 @@ import {
   Stars2,
   Stars3,
 } from '../Background/Background.styled';
-import { Container, Wrapper, Title, SubTitle } from '../App/App.styled';
+import {
+  CallToActionText,
+  PlayerContainer,
+  SoundCloudButton,
+  Container,
+  Wrapper,
+  Title,
+  SubTitle,
+} from '../App/App.styled';
 
 const App = () => {
-  const audioRef = useRef(
-    new Audio(
-      'https://soundcloud.com/momomoyouth/true-romance-sox-prod-v51?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing'
-    )
-  );
+  // State to manage ReactPlayer play status
+  const [playing, setPlaying] = useState(false);
+
   const contacts = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
-
-  const playAudio = () => {
-    audioRef.current.play().catch(error => {
-      console.error('Audio play failed:', error);
-    });
-  };
-
-  const stopAudio = () => {
-    audioRef.current.pause();
-    audioRef.current.currentTime = 0;
-  };
 
   const addContactHandler = contact => {
     dispatch(addContact({ ...contact, id: nanoid() }));
@@ -53,8 +49,21 @@ const App = () => {
 
   return (
     <div>
-      <button onClick={playAudio}>Play</button>
-      <button onClick={stopAudio}>Stop</button>
+      <PlayerContainer>
+        <ReactPlayer
+          url="https://soundcloud.com/nunomikepimenta/sets/house-music-2023-part-1?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+          playing={playing}
+          width="0"
+          height="0"
+        />
+        <CallToActionText>Click Play, You Won't Regret It!</CallToActionText>
+        <SoundCloudButton onClick={() => setPlaying(true)}>
+          Play
+        </SoundCloudButton>
+        <SoundCloudButton onClick={() => setPlaying(false)}>
+          Stop
+        </SoundCloudButton>
+      </PlayerContainer>
 
       <BackgroundContainer>
         <Stars />

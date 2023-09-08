@@ -40,3 +40,35 @@ export const SubTitle = styled.h2`
   font-size: 24px;
   letter-spacing: 5px;
 `;
+
+export const PlayerContainer = styled.div`
+  text-align: center;
+  position: relative;
+`;
+
+export const SoundCloudButton = styled.button`
+  background-color: #ff5500;
+  color: white;
+  border: none;
+  padding: 3px 6px;
+  margin: 2px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #ff8800;
+  }
+`;
+
+export const CallToActionText = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 0 2px;
+  font-size: 14px;
+`;
