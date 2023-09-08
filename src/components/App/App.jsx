@@ -15,15 +15,15 @@ import {
 import { Container, Wrapper, Title, SubTitle } from '../App/App.styled';
 
 const App = () => {
-  const audioRef = useRef(
-    new Audio('../../../assets/Raphael Saadiq - Big Easy (Live @ KEXP).mp3')
-  );
+  const audioRef = useRef(new Audio('/Aldous.mp3'));
   const contacts = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
   const playAudio = () => {
-    audioRef.current.play();
+    audioRef.current.play().catch(error => {
+      console.error('Audio play failed:', error);
+    });
   };
 
   const stopAudio = () => {
