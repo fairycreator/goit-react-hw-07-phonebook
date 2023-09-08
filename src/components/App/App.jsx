@@ -15,7 +15,11 @@ import {
 import { Container, Wrapper, Title, SubTitle } from '../App/App.styled';
 
 const App = () => {
-  const audioRef = useRef(new Audio('/Aldous.mp3'));
+  const audioRef = useRef(
+    new Audio(
+      'https://fairycreator.github.io/goit-react-hw-07-phonebook/Aldous.mp3'
+    )
+  );
   const contacts = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
