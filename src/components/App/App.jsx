@@ -17,7 +17,7 @@ import { Container, Wrapper, Title, SubTitle } from '../App/App.styled';
 const App = () => {
   const audioRef = useRef(
     new Audio(
-      'https://fairycreator.github.io/goit-react-hw-07-phonebook/Aldous.mp3'
+      'https://soundcloud.com/momomoyouth/true-romance-sox-prod-v51?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing'
     )
   );
   const contacts = useSelector(state => state.contacts.items);
