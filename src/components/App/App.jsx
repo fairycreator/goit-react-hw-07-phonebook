@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
-import { addContact, deleteContact } from '../redux/contactsSlice';
+import { getContacts, addContact, deleteContact } from '../redux/contactsSlice'; // Importing addContact and deleteContact
 import { setFilter } from '../redux/filterSlice';
 import ContactForm from '../ContactForm/ContactForm';
 import ContactList from '../ContactList/ContactList';
@@ -31,11 +31,11 @@ const App = () => {
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
-  const addContactHandler = contact => {
+  const addContact = contact => {
     dispatch(addContact({ ...contact, id: nanoid() }));
   };
 
-  const deleteContactHandler = id => {
+  const deleteContact = id => {
     dispatch(deleteContact(id));
   };
 
@@ -73,17 +73,17 @@ const App = () => {
           <Title>
             Phone<span>book</span>
           </Title>
-          <ContactForm onSubmit={addContactHandler} />
+          <ContactForm onSubmit={addContact} />
           <SubTitle>Contacts</SubTitle>
           {contacts.length > 0 ? (
             <Filter value={filter} onChangeFilter={handleFilterChange} />
           ) : (
-            <Wrapper>Your phonebook is empty. Add first contact!</Wrapper>
+            <Wrapper>Your phonebook is empty. Add the first contact!</Wrapper>
           )}
           {contacts.length > 0 && (
             <ContactList
               contacts={filteredContacts}
-              onDeleteContact={deleteContactHandler}
+              onDeleteContact={deleteContact}
             />
           )}
         </Container>
