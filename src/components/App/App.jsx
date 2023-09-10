@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
-import { addContacts, delContacts } from '../redux/contactsSlice'; // Importing addContact and deleteContact
+import { addContactsThunk, delContactsThunk } from '../redux/contactsThunk'; // Importing the thunk actions
 import { setFilter } from '../redux/filterSlice';
 import { ContactForm } from '../ContactForm/ContactForm';
 import { ContactList } from '../ContactList/ContactList';
@@ -27,16 +27,14 @@ const App = () => {
   const [playing, setPlaying] = useState(false);
 
   const contacts = useSelector(state => state.contacts.items);
-  const filter = useSelector(state => state.filter);
+  const filter = useSelector(state => state.filter.value); // Updated to accommodate the changed initial state of filterSlice
   const isLoading = useSelector(state => state.contacts.isLoading);
   const dispatch = useDispatch();
 
-  const addContact = contact => {
-    dispatch(addContacts({ ...contact, id: nanoid() }));
-  };
+  // Removed the addContact function since it's not used anymore
 
   const deleteContact = id => {
-    dispatch(delContacts(id));
+    dispatch(delContactsThunk(id));
   };
 
   const handleFilterChange = event => {
@@ -74,7 +72,7 @@ const App = () => {
           <Title>
             Phone<span>book</span>
           </Title>
-          <ContactForm onSubmit={addContact} />
+          <ContactForm />
           <SubTitle>Contacts</SubTitle>
           {contacts.length > 0 ? (
             <Filter value={filter} onChangeFilter={handleFilterChange} />

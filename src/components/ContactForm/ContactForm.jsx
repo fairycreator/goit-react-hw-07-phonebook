@@ -4,7 +4,7 @@ import { Form, Label, Input, SubmitButton } from './ContactForm.styled';
 import { useDispatch } from 'react-redux';
 import { addContactsThunk } from '../redux/contactsThunk';
 
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
