@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List, Item, DeleteButton } from './ContactList.styled';
+import { useDispatch } from 'react-redux';
+import { delContactsThunk } from '../redux/contactsThunk';
 
-const ContactList = ({ contacts, onDeleteContact }) => {
+export const ContactList = ({ contacts }) => {
+  const dispatch = useDispatch();
+
   return (
     <List>
       {contacts.map(contact => (
         <Item key={contact.id}>
           {contact.name}: {contact.number}
-          <DeleteButton onClick={() => onDeleteContact(contact.id)}>
+          <DeleteButton onClick={() => dispatch(delContactsThunk(contact.id))}>
             Delete
           </DeleteButton>
         </Item>
@@ -19,7 +23,4 @@ const ContactList = ({ contacts, onDeleteContact }) => {
 
 ContactList.propTypes = {
   contacts: PropTypes.array.isRequired,
-  onDeleteContact: PropTypes.func.isRequired,
 };
-
-export default ContactList;

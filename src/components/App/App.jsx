@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
-import { getContacts, addContact, deleteContact } from '../redux/contactsSlice'; // Importing addContact and deleteContact
+import { addContacts, delContacts } from '../redux/contactsSlice'; // Importing addContact and deleteContact
 import { setFilter } from '../redux/filterSlice';
-import ContactForm from '../ContactForm/ContactForm';
-import ContactList from '../ContactList/ContactList';
+import { ContactForm } from '../ContactForm/ContactForm';
+import { ContactList } from '../ContactList/ContactList';
 import Filter from '../Filter/Filter';
 import {
   BackgroundContainer,
@@ -24,19 +24,19 @@ import {
 } from '../App/App.styled';
 
 const App = () => {
-  // State to manage ReactPlayer play status
   const [playing, setPlaying] = useState(false);
 
   const contacts = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.filter);
+  const isLoading = useSelector(state => state.contacts.isLoading);
   const dispatch = useDispatch();
 
   const addContact = contact => {
-    dispatch(addContact({ ...contact, id: nanoid() }));
+    dispatch(addContacts({ ...contact, id: nanoid() }));
   };
 
   const deleteContact = id => {
-    dispatch(deleteContact(id));
+    dispatch(delContacts(id));
   };
 
   const handleFilterChange = event => {
@@ -49,6 +49,7 @@ const App = () => {
 
   return (
     <div>
+      {/* {isLoading ? <p>Loading...</p> : null} */}
       <PlayerContainer>
         <ReactPlayer
           url="https://soundcloud.com/nunomikepimenta/sets/house-music-2023-part-1?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"

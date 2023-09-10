@@ -1,72 +1,51 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact } from './contactsThunk';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import {
+  addContactsThunk,
+  delContactsThunk,
+  getContactsThunk,
+} from './contactsThunk';
 
-const contactsInitialState = {
-  items: [
-    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-  ],
-  isLoading: false,
-  error: null,
+const handlePending = state => {
+  state.isLoading = true;
 };
 
-const contactsSlice = createSlice({
+const handleReject = (state, { payload }) => {
+  state.error = payload;
+};
+
+const sliceContact = createSlice({
   name: 'contacts',
-  initialState: contactsInitialState,
-  reducers: {},
+  initialState: {
+    items: [
+      {
+        createdAt: '2023-04-05T23:25:30.677Z',
+        name: 'Dolores Morar',
+        phone: '(570) 817-2230',
+        id: '29',
+      },
+    ],
+    isLoading: false,
+    error: null,
+  },
   extraReducers: builder => {
     builder
-      .addCase(fetchContacts.pending, state => {
-        state.isLoading = true;
+      .addCase(getContactsThunk.pending, handlePending)
+      .addCase(getContactsThunk.rejected, handleReject)
+      .addCase(getContactsThunk.fulfilled, (state, { payload }) => {
+        state.items = payload;
       })
-      .addCase(fetchContacts.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.items = action.payload;
+      .addCase(addContactsThunk.pending, handlePending)
+      .addCase(addContactsThunk.rejected, handleReject)
+      .addCase(addContactsThunk.fulfilled, (state, { payload }) => {
+        state.items = [payload, ...state.items];
       })
-      .addCase(fetchContacts.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.error.message;
-      })
-      .addCase(addContact.pending, state => {
-        state.isLoading = true;
-      })
-      .addCase(addContact.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.items.unshift(action.payload);
-      })
-      .addCase(addContact.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.error.message;
-      })
-      .addCase(deleteContact.pending, state => {
-        state.isLoading = true;
-      })
-      .addCase(deleteContact.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.items = state.items.filter(
-          contact => contact.id !== action.payload
-        );
-      })
-      .addCase(deleteContact.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.error.message;
+      .addCase(delContactsThunk.pending, handlePending)
+      .addCase(delContactsThunk.rejected, handleReject)
+      .addCase(delContactsThunk.fulfilled, (state, { payload }) => {
+        state.items = state.items.filter(item => item.id !== payload.id);
       });
   },
 });
 
-const persistConfig = {
-  key: 'root',
-  storage,
-  blacklist: ['isLoading', 'error'],
-};
-
-export const persistedContactReducer = persistReducer(
-  persistConfig,
-  contactsSlice.reducer
-);
-
-export const getContacts = state => state.contacts.items;
+export const { addContacts, delContacts } = sliceContact.actions;
+export const contactsReducer = sliceContact.reducer;

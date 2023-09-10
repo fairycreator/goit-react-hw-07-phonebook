@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Label, Input, SubmitButton } from './ContactForm.styled';
+import { useDispatch } from 'react-redux';
+import { addContactsThunk } from '../redux/contactsThunk';
 
-const ContactForm = ({ onSubmit }) => {
+export const ContactForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit({ name, number });
+    dispatch(addContactsThunk({ name, number }));
     setName('');
     setNumber('');
   };
@@ -39,7 +42,5 @@ const ContactForm = ({ onSubmit }) => {
 };
 
 ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
 };
-
-export default ContactForm;
