@@ -49,7 +49,7 @@ const App = () => {
 
   return (
     <div>
-      {/* {isLoading ? <p>Loading...</p> : null} */}
+      {isLoading ? <p>Loading...</p> : null}
       <PlayerContainer>
         <ReactPlayer
           url="https://soundcloud.com/nunomikepimenta/sets/house-music-2023-part-1?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
