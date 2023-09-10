@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ReactPlayer from 'react-player';
+// import ReactPlayer from 'react-player';
 import { useSelector, useDispatch } from 'react-redux';
 import { delContactsThunk } from '../redux/contactsThunk';
 import { setFilter } from '../redux/filterSlice';
@@ -13,9 +13,9 @@ import {
   Stars3,
 } from '../Background/Background.styled';
 import {
-  CallToActionText,
-  PlayerContainer,
-  SoundCloudButton,
+  // CallToActionText,
+  // PlayerContainer,
+  // SoundCloudButton,
   Container,
   Wrapper,
   Title,
@@ -23,7 +23,7 @@ import {
 } from './App.styled';
 
 const App = () => {
-  const [playing, setPlaying] = useState(false);
+  // const [playing, setPlaying] = useState(false);
 
   const contacts = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.filter.value);
@@ -45,7 +45,7 @@ const App = () => {
   return (
     <div>
       {isLoading ? <p>Loading...</p> : null}
-      <PlayerContainer>
+      {/* <PlayerContainer>
         <ReactPlayer
           url="https://soundcloud.com/nunomikepimenta/sets/house-music-2023-part-1?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
           playing={playing}
@@ -59,7 +59,7 @@ const App = () => {
         <SoundCloudButton onClick={() => setPlaying(false)}>
           Stop
         </SoundCloudButton>
-      </PlayerContainer>
+      </PlayerContainer> */}
 
       <BackgroundContainer>
         <Stars />
