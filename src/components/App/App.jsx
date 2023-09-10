@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useSelector, useDispatch } from 'react-redux';
-import { nanoid } from 'nanoid';
-import { addContactsThunk, delContactsThunk } from '../redux/contactsThunk'; // Importing the thunk actions
+import { delContactsThunk } from '../redux/contactsThunk';
 import { setFilter } from '../redux/filterSlice';
 import { ContactForm } from '../ContactForm/ContactForm';
 import { ContactList } from '../ContactList/ContactList';
@@ -21,17 +20,15 @@ import {
   Wrapper,
   Title,
   SubTitle,
-} from '../App/App.styled';
+} from './App.styled';
 
 const App = () => {
   const [playing, setPlaying] = useState(false);
 
   const contacts = useSelector(state => state.contacts.items);
-  const filter = useSelector(state => state.filter.value); // Updated to accommodate the changed initial state of filterSlice
+  const filter = useSelector(state => state.filter.value);
   const isLoading = useSelector(state => state.contacts.isLoading);
   const dispatch = useDispatch();
-
-  // Removed the addContact function since it's not used anymore
 
   const deleteContact = id => {
     dispatch(delContactsThunk(id));
