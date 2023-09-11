@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { addContacts, delContacts, getContacts } from '../../api/api';
+import { addContacts, delContacts, getContacts } from '../service/api';
 
 export const getContactsThunk = createAsyncThunk(
   'contacts/allContacts',
