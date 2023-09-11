@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 // import ReactPlayer from 'react-player';
 import { useSelector, useDispatch } from 'react-redux';
 import { delContactsThunk } from '../redux/contactsThunk';
