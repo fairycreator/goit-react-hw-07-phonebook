@@ -27,7 +27,7 @@ const App = () => {
 
   const contacts = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.filter.value);
-  const isLoading = useSelector(state => state.contacts.isLoading);
+  // const isLoading = useSelector(state => state.contacts.isLoading);
   const dispatch = useDispatch();
 
   const deleteContact = id => {
