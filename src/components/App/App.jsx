@@ -1,7 +1,8 @@
+import { useEffect } from 'react';
 import React from 'react';
 // import ReactPlayer from 'react-player';
 import { useSelector, useDispatch } from 'react-redux';
-import { delContactsThunk } from '../redux/contactsThunk';
+import { delContactsThunk, fetchContactsThunk } from '../redux/contactsThunk';
 import { setFilter } from '../redux/filterSlice';
 import { ContactForm } from '../ContactForm/ContactForm';
 import { ContactList } from '../ContactList/ContactList';
@@ -41,6 +42,10 @@ const App = () => {
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
+
+  useEffect(() => {
+    dispatch(fetchContactsThunk());
+  }, [dispatch]);
 
   return (
     <div>
